@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dumtculox76ga"]
+[gd_scene load_steps=3 format=3 uid="uid://dumtculox76ga"]
 
 [ext_resource type="Texture2D" uid="uid://d38ceuoo614k4" path="res://assets/bg.png" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://udrnfxw7m7wp" path="res://scenes/bird.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_o5qli")
 centered = false
+
+[node name="Bird" parent="." instance=ExtResource("2_0wfyh")]
