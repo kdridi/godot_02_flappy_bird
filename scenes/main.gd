@@ -1,14 +1,20 @@
 extends Node2D
 
-var game_over
-var game_running
+const SCROLL_SPEED : int = 5
+
+var game_over : bool
+var game_running : bool
+var screen_size : Vector2i
+var scroll : int
 
 func _ready() -> void:
+	screen_size = get_window().size
 	new_game()
 
 func new_game() -> void:
 	game_over = false
 	game_running = false
+	scroll = 0
 	$Bird.reset()
 
 func _input(event: InputEvent) -> void:
@@ -20,6 +26,13 @@ func _input(event: InputEvent) -> void:
 				else:
 					if $Bird.flying:
 						$Bird.flap()
+
+func _process(delta: float) -> void:
+	if game_running:
+		scroll += SCROLL_SPEED
+		if scroll >= screen_size.x:
+			scroll -= screen_size.x
+		$Ground.position.x = -scroll
 
 func start_game() -> void:
 	game_running = true
