@@ -46,12 +46,17 @@ func _on_ground_hit() -> void:
 	$Bird.falling = false
 	stop_game()
 
+func _on_game_over_restart() -> void:
+	new_game()
+
 func new_game() -> void:
 	game_over = false
 	game_running = false
 	scroll = 0
 	pipes.clear()
+	get_tree().call_group("pipes", "queue_free")
 	set_score(0)
+	$GameOver.hide()
 	generate_pipes()
 	$Bird.reset()
 
@@ -66,6 +71,7 @@ func stop_game() -> void:
 	$Bird.flying = false
 	game_running = false
 	game_over = true
+	$GameOver.show()
 
 func generate_pipes() -> void:
 	var pipe = pipe_scene.instantiate()

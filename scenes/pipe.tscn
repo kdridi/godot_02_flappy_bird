@@ -18,7 +18,7 @@ size = Vector2(72, 524)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ybk5"]
 size = Vector2(47, 1086)
 
-[node name="Pipe" type="Area2D"]
+[node name="Pipe" type="Area2D" groups=["pipes"]]
 script = ExtResource("1_arpqm")
 
 [node name="Lower" type="Sprite2D" parent="."]
