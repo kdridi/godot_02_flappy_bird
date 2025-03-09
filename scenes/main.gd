@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 				else:
 					if $Bird.flying:
 						$Bird.flap()
+						check_top()
 
 func _process(delta: float) -> void:
 	if game_running:
@@ -54,9 +55,21 @@ func start_game() -> void:
 	$Bird.flap()
 	$PipeTimer.start()
 
+func stop_game() -> void:
+	$PipeTimer.stop()
+	$Bird.flying = false
+	game_running = false
+	game_over = true
+
 func generate_pipes() -> void:
 	var pipe = pipe_scene.instantiate()
 	pipe.position.x = screen_size.x + PIPE_DELAY
 	pipe.position.y = (screen_size.x - groung_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
 	add_child(pipe)
 	pipes.append(pipe)
+
+func check_top() -> void:
+	if $Bird.position.y < 0:
+		$Bird.falling = true
+		stop_game()
+	
