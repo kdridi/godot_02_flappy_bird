@@ -41,6 +41,10 @@ func _process(delta: float) -> void:
 func _on_pipe_timer_timeout() -> void:
 	generate_pipes()
 
+func _on_ground_hit() -> void:
+	$Bird.falling = false
+	stop_game()
+
 func new_game() -> void:
 	game_over = false
 	game_running = false
@@ -65,6 +69,7 @@ func generate_pipes() -> void:
 	var pipe = pipe_scene.instantiate()
 	pipe.position.x = screen_size.x + PIPE_DELAY
 	pipe.position.y = (screen_size.x - groung_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
+	pipe.hit.connect(bird_hit)
 	add_child(pipe)
 	pipes.append(pipe)
 
@@ -73,3 +78,6 @@ func check_top() -> void:
 		$Bird.falling = true
 		stop_game()
 	
+func bird_hit() -> void:
+	$Bird.falling = true
+	stop_game()
