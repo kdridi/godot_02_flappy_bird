@@ -11,12 +11,6 @@ func _ready() -> void:
 	screen_size = get_window().size
 	new_game()
 
-func new_game() -> void:
-	game_over = false
-	game_running = false
-	scroll = 0
-	$Bird.reset()
-
 func _input(event: InputEvent) -> void:
 	if game_over == false:
 		if event is InputEventMouseButton:
@@ -33,6 +27,12 @@ func _process(delta: float) -> void:
 		if scroll >= screen_size.x:
 			scroll -= screen_size.x
 		$Ground.position.x = -scroll
+
+func new_game() -> void:
+	game_over = false
+	game_running = false
+	scroll = 0
+	$Bird.reset()
 
 func start_game() -> void:
 	game_running = true
