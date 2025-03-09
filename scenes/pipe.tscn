@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bnd0qdxim6ptb"]
+
+[node name="Pipe" type="Area2D"]
