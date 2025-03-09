@@ -12,6 +12,7 @@ var screen_size : Vector2i
 var groung_height : int
 var scroll : int
 var pipes : Array
+var score : int
 
 func _ready() -> void:
 	screen_size = get_window().size
@@ -50,6 +51,7 @@ func new_game() -> void:
 	game_running = false
 	scroll = 0
 	pipes.clear()
+	set_score(0)
 	generate_pipes()
 	$Bird.reset()
 
@@ -70,6 +72,7 @@ func generate_pipes() -> void:
 	pipe.position.x = screen_size.x + PIPE_DELAY
 	pipe.position.y = (screen_size.x - groung_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
 	pipe.hit.connect(bird_hit)
+	pipe.scored.connect(scored)
 	add_child(pipe)
 	pipes.append(pipe)
 
@@ -81,3 +84,10 @@ func check_top() -> void:
 func bird_hit() -> void:
 	$Bird.falling = true
 	stop_game()
+
+func set_score(value: int) -> void:
+	score = value
+	$ScoreLabel.text = "SCORE: " + str(score)
+
+func scored() -> void:
+	set_score(score + 1)
